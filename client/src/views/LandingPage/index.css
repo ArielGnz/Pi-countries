@@ -1,0 +1,18 @@
+.landing{
+    flex: 1;
+    min-height: 1500px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+
+    background-image: url('../../assets/countries.png'); /* Reemplaza 'ruta/al/logo.png' con la ruta de tu imagen de logo */
+    background-repeat: no-repeat;
+    background-position: center center; /* Puedes ajustar la posición del logo según tus necesidades */
+    background-attachment: fixed; /* Para fijar el fondo, si lo prefieres */
+    background-size: cover; /* Para cubrir todo el fondo */
+
+}
+
+.bot{
+    text-align: center;
+}

@@ -1,0 +1,8 @@
+.container-pag{
+    display: flex;
+    justify-content: space-around;
+}
+
+.boton{
+    width: 150px;
+}

@@ -1,0 +1,52 @@
+  h1{
+    text-align: center;
+  }
+  
+  select{
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  
+  .formStyles {
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+
+  .container input{
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 1px;
+    box-sizing: border-box;
+  }
+  
+  /* Estilos para el fieldset de países */
+  .fieldsetStyles {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 70;
+  }
+  
+  /* Estilos para los checkboxes y labels dentro del fieldset */
+  .checkboxContainer {
+    margin-right: 10px;
+    
+  }
+  
+  /* Estilos para el botón de envío */
+  .submitButtonStyles {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
