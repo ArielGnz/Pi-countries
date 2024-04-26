@@ -4,6 +4,7 @@ import { FILTER_CONTINENTS, GET_COUNTRIES, GET_DETAIL, GET_NAME, GET_ORDER, POBL
 const initialState = {
     continents: [],
     allCountries:[],
+    name:[],
     detail:[],
     allActivities:[],
     CountriesAux: [],

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import './index2.css';
+//import './index2.css';
 
 
 function Landing(){

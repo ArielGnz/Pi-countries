@@ -1,14 +1,16 @@
-/* Cards.css */
+
 
 .cards-container {
     display: grid;
     flex-wrap: wrap;
     justify-content: space-between;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
     margin: 0 auto;
-    /* Add more styles as needed */
-  }
+   
+}
+
+
+
   
-  /* Add any additional styles for the Card component if necessary */
-  
+ 

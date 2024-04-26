@@ -1,5 +1,5 @@
 import React from "react";
-import './pagination.css';
+//import './pagination.css';
 
 function pagination({currentPage, setCurrentPage, page}){
 
@@ -18,13 +18,13 @@ function pagination({currentPage, setCurrentPage, page}){
 
     return(
         <>
-            <div className="container-pag">
+            <div className="flex justify-center">
                 
-                <button className="boton" onClick={prev}> Prev </button>
+                <button className="border-solid border-4 border-sky-700 hover:border-indigo-300 px-4 rounded-md mx-3" onClick={prev}> Prev </button>
 
-                <h3> {currentPage} / {page} </h3>
+                <button className="border-solid border-4 border-sky-700 hover:border-indigo-300 px-4 rounded-md mx-3"> {currentPage} / {page} </button>
 
-                <button className="boton" onClick={next}> Next </button>
+                <button className="border-solid border-4 border-sky-700 hover:border-indigo-300 px-4 rounded-md mx-3" onClick={next}> Next </button>
                 
             </div>
         </>

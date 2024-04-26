@@ -1,6 +1,7 @@
 import { 
     GET_COUNTRIES,
-    GET_NAME, GET_DETAIL, 
+    GET_NAME, 
+    GET_DETAIL, 
     FILTER_CONTINENTS, 
     GET_ORDER, 
     POBLATION_ORDER,

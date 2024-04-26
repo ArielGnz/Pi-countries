@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getDetail } from '../../redux/actions';
 import { Link } from "react-router-dom";
 
-import './detail2.css';
+//import './detail2.css';
 
 function Detail() {
     const {id} = useParams();
@@ -17,22 +17,27 @@ function Detail() {
     }, [dispatch]);
     return (  
     
-        <>
+        <div className="flex justify-content-center">
 
-            <div className="container-detail" >
-                    <img className = "image"  src={detail.image} alt='' />
-                    <h3>ID: {detail.id}</h3>
-                    <h3>NAME: {detail.name}</h3>
-                    <h3>CONTINENT: {detail.continent}</h3>
-                    <h3>CAPITAL:{detail.capital}</h3>
-                    <h3>AREA: {detail.area}</h3>
-                    <h3>SUBREGION: {detail.subregion}</h3>
-                    <h3>POBLATION: {detail.poblation}</h3>
-                    <Link to='/home'><button className='button'>  Home  </button></Link>  
-      
+            <div className='card shadow-lg mt-10 w-96' key={id}>
+               
+                    <img src={detail.image} className='w-full h-60' />
+                    <div className="px-6 py-4">
+                        <div className="font-bold text-xl mb-2 ">{detail.name}</div>
+                            <ul className="list-disc">
+                                <li>Id: {detail.id}</li>
+                                <li>Continent: {detail.continent}</li>
+                                <li>Poblation: {detail.poblation}</li>
+                                <li>Capital: {detail.capital}</li>
+                                <li>Area: {detail.area}</li>
+                                <li>Subregion: {detail.subregion}</li>
+                                
+                            </ul>
+                    </div>
+                
             </div>
-        </>  
-        
+        </div>  
+          
     );
 }
 

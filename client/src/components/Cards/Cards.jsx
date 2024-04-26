@@ -1,17 +1,20 @@
 
 import Card from "../Card/Card";
-import "./Cards2.css";
+//import "./Cards2.css";
 
 function Cards({data}) {
 
     const countriesList = data;
 
+   
+    //"flex flex-wrap h-screen"
     return (  
-        <div className="cards-container" >
-            {
-                countriesList.map(country => <Card country = {country} key={country.name}/>)   
-            }
+        <div className="grid grid-cols-1 md:grid-cols-4" >
+        {
+            countriesList.map(country => <Card country = {country} key={country.name}/>)   
+        }
         </div>
+       
     );
 }
 

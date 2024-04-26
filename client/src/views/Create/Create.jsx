@@ -68,7 +68,6 @@ function Create(){
     return(
 
         <div>
-            <h1>CREATE ACTIVITIES</h1>
 
             <form className="formStyles" onSubmit={handleSubmit}>
                 <div className="container">
@@ -92,6 +91,7 @@ function Create(){
                         value={formulario.difficulty}
                         onChange={handleChange}
                         placeholder="Ingrese un numero del 1 al 5"
+                        
                     />
                     {errors.difficulty1 && <p>{errors.difficulty1}</p>}
                     {errors.difficulty2 && <p>{errors.difficulty2}</p>}
@@ -153,7 +153,7 @@ function Create(){
                 {errors.country && <p>{errors.country}</p>}
                 
                 <br />
-                <button className="submitButtonStyles" type="submit" disabled={disable}> Enviar </button>
+                <button className="rounded bg-sky-700 w-full text-white px-4 py-2" type="submit" disabled={disable}> Enviar </button>
             </form>
         </div>
     )

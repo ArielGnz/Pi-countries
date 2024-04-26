@@ -1,94 +1,57 @@
 import React from "react";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { filterContinents, getOrder, poblationOrder, getActivities, filterActivity } from "../../redux/actions";
-import './Nav2.css';
+import { getName } from "../../redux/actions";
+//import './Nav2.css';
 
 
 function Nav({ handleChange, handleSubmit }){
-    const allActivities = useSelector((state)=>state.allActivities);
+    //const allActivities = useSelector((state)=>state.allActivities);
     const dispatch = useDispatch();
+    const [searchString, setSearchString] = useState("");
+
+    function handleChange(e){
+        e.preventDefault();
+        setSearchString(e.target.value);
+    }
     
-    function selectCont(e){
-        dispatch(filterContinents(e.target.value));
+    function handleSubmit(e){
+        e.preventDefault();
+        dispatch(getName(searchString))
     }
-
-    function selectOrd(e){
-        dispatch(getOrder(e.target.value));
-    }
-
-    function selectOrdPoblation(e){
-        dispatch(poblationOrder(e.target.value));
-    }
-
-    function selectActivity(e){
-        dispatch(filterActivity(e.target.value , e.target.name));
-    }
-
-    useEffect(() =>{
-        dispatch(getActivities())
-    },[])
 
     return (  
 
-        <div className='navbar'>
-        
-            <div className='search-box'>
-                <form onChange={handleChange}>
-                    <input placeholder='Buscar' />                
-                </form>
-                <button type='submit' onClick={handleSubmit}>Buscar</button>
-           </div>
-
-            <span> Continent </span>
-            <select onChange={selectCont}> 
-                <option value="All">All</option>
-                <option value="Asia">Asia</option>
-                <option value="Americas">America</option>
-                <option value="Africa">Africa</option>
-                <option value="Antarctic">Antartida</option>
-                <option value="Europe">Europe</option>
-                <option value="Oceania">Oceania</option>
-            </select>
-
-            <span> Order Alphabetically </span>
-            <select onChange={selectOrd}>
-                <option value="" hidden></option>
-                <option value="As">Ascendente</option>
-                <option value="Ds">Descendente</option>
-            </select>
-
-            <span> Order by Population </span>
-            <select onChange={selectOrdPoblation}>
-                <option value="" hidden></option>
-                <option value="As">Ascendente</option>
-                <option value="Ds">Descendente</option>
-            </select>
-
-            <span> Activity </span>
-
-            <select onChange={selectActivity}>
-                <option value=""hidden></option>
-                {allActivities.map((actividad) => (
-                    <option key={actividad.name} value={actividad.name}>
-                        {actividad.name}
-                    </option>
-                ))}
-
-            </select>
-
-            <div>
-                <Link to='/home'>
-                    <button className="btn">  Home  </button>
-                </Link>
-                    
-                <Link to='/create'>
-                    <button className="btn">  Create  </button>
-                </Link>
-            </div>
+        <nav className="flex items-center justify-between flex-wrap bg-sky-700 p-6">
+        <div className="flex items-center flex-shrink-0 text-white mr-6">
+          <svg className="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
+          <Link to='/home'><button className="font-semibold text-xl tracking-tight text-white">Countries</button></Link>
+          
         </div>
+        <div className="block lg:hidden">
+          <button id='boton' className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+            <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+          </button>
+        </div>
+        <div id='menu' className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+          <div className="text-sm lg:flex-grow">
+             
+                <Link to='/home'><button className="p-2 font-semibold text-xl tracking-tight text-white"> Home </button></Link>  
+            
+                <Link to='/create'><button className="p-2 font-semibold text-xl tracking-tight text-white">  Create  </button></Link>
+            
+          </div>
+          <div>
+          <input onChange={handleChange} placeholder='Buscar' className="inline-block text-sm px-4 py-2 border rounded text-black border-white text-black"/>
+            <button type='submit' onClick={handleSubmit} className="p-4 font-semibold text-xl tracking-tight text-white" >Buscar</button> 
+          </div>
+        </div>
+      </nav>
     );
+
+   
+
 }
 
 export default Nav;
