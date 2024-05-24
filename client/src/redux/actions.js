@@ -16,7 +16,7 @@ axios.defaults.baseURL = "radiant-communication-production.up.railway.app";
 
 export const getCountries = () => {
     return async function(dispatch){
-        const response = await axios(`/countries/`);
+        const response = await axios(`/countries`);
         return dispatch({
             type: GET_COUNTRIES,
             payload: response.data
@@ -75,26 +75,26 @@ export const poblationOrder = (order) => {
     }
 }
 
-export function getActivities() {
-    return async function (dispatch) {
-            const response = await axios(`/activities`);
-            return dispatch({
-                type: GET_ACTIVITIES,
-                payload: response.data
-            })
+// export function getActivities() {
+//     return async function (dispatch) {
+//             const response = await axios(`/activities`);
+//             return dispatch({
+//                 type: GET_ACTIVITIES,
+//                 payload: response.data
+//             })
        
-    }
-}
+//     }
+// }
 
 
-export function postForm(payload) {
+// export function postForm(payload) {
 
-    return async function () {
-        try {
-            const res = await axios.post('/activities', payload)
-            return res;
-        } catch (error) {
+//     return async function () {
+//         try {
+//             const res = await axios.post('/activities', payload)
+//             return res;
+//         } catch (error) {
             
-        }
-    }
-}
+//         }
+//     }
+// }
