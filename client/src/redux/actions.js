@@ -11,9 +11,12 @@ import {
 
 import axios from 'axios';
 
+axios.defaults.baseURL = "radiant-communication-production.up.railway.app";
+//axios.defaults.baseURL = "http://localhost:3001";
+
 export const getCountries = () => {
     return async function(dispatch){
-        const response = await axios(`http://localhost:3001/countries/`);
+        const response = await axios(`/countries/`);
         return dispatch({
             type: GET_COUNTRIES,
             payload: response.data
@@ -23,7 +26,7 @@ export const getCountries = () => {
 
 export const getName = (name) => {
     return async function(dispatch){
-        const response = await axios(`http://localhost:3001/countries/?name=${name}`);
+        const response = await axios(`/countries/?name=${name}`);
         return dispatch({
             type: GET_NAME,
             payload: response.data
@@ -33,7 +36,7 @@ export const getName = (name) => {
 
 export const getDetail = (id) => {
     return async function(dispatch){
-        const response = await axios(`http://localhost:3001/countries/${id}`);
+        const response = await axios(`/countries/${id}`);
         return dispatch({
             type: GET_DETAIL,
             payload: response.data
@@ -74,7 +77,7 @@ export const poblationOrder = (order) => {
 
 export function getActivities() {
     return async function (dispatch) {
-            const response = await axios(`http://localhost:3001/activities`);
+            const response = await axios(`/activities`);
             return dispatch({
                 type: GET_ACTIVITIES,
                 payload: response.data
@@ -88,7 +91,7 @@ export function postForm(payload) {
 
     return async function () {
         try {
-            const res = await axios.post('http://localhost:3001/activities', payload)
+            const res = await axios.post('/activities', payload)
             return res;
         } catch (error) {
             
