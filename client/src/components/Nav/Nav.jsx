@@ -44,14 +44,14 @@ function Nav({ handleChange, handleSubmit }){
           <div id='menu' className={`w-full block flex-grow lg:flex lg:items-center lg:w-auto ${menuVisible ? 'flex' : 'hidden'}`}>
             <div className='flex my-auto text-sm lg:flex-grow'>
               
-                <Link to='/home'><button className="p-2 font-semibold text-xl tracking-tight text-white"> Home </button></Link>  
+                <Link to='/home'><button className="p-2 font-semibold text-lg lg:text-xl tracking-tight text-white"> Home </button></Link>  
             
-                <Link to='/create'><button className="p-2 font-semibold text-xl tracking-tight text-white">  Create  </button></Link>
+                <Link to='/create'><button className="p-2 font-semibold text-lg lg:text-xl tracking-tight text-white">  Create  </button></Link>
               
             </div>
             <div className="flex">
-                <input onChange={handleChange} placeholder='Buscar' className="inline-block text-sm px-4 py-2 border rounded text-black border-white text-black lg:h-[40px] my-auto mx-2"/>
-                <button type='submit' onClick={handleSubmit} className="p-2 font-semibold text-xl tracking-tight text-white" >Buscar</button> 
+                <input onChange={handleChange} placeholder='Buscar' className="w-[100px] lg:w-[200px] inline-block text-sm px-4 py-2 border rounded text-black border-white text-black lg:h-[40px] my-auto mx-2"/>
+                <button type='submit' onClick={handleSubmit} className="p-2 font-semibold text-lg lg:text-xl tracking-tight text-white" >Buscar</button> 
             </div>
           </div>
 

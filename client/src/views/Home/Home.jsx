@@ -60,7 +60,7 @@ function Home() {
             
             <div className='w-full m-auto justify-center'>
                 
-                    <div className='flex flex-row justify-around mt-0 p-4 bg-sky-100'>  
+                    <div className='flex flex-row flex-wrap justify-normal lg:justify-around mt-0 p-4 bg-sky-100'>  
                         <div className='text-center font-bold'>
                             <label className='mx-2'>Continent</label>
                             <select onChange={selectCont} className='w-[110px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
@@ -107,7 +107,7 @@ function Home() {
                     </div>
 
                 
-                <div className='mt-4 ml-4'>
+                <div className='mt-4 ml-4 lg:ml-[85px]'>
                     <Cards data={data} />
                 </div>
 
