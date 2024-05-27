@@ -11,8 +11,8 @@ import {
 
 import axios from 'axios';
 
-//axios.defaults.baseURL = "https://radiant-communication-production.up.railway.app/";
-axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "https://radiant-communication-production.up.railway.app/";
+//axios.defaults.baseURL = "http://localhost:3001";
 
 export const getCountries = () => {
     return async function(dispatch){
