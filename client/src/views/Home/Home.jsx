@@ -56,76 +56,69 @@ function Home() {
 
     return (  
 
-        <div className='flex p-3 '>
+        <div className='flex flex-col w-full m-auto '>
             
-                <div className="h-screen w-20 sm:w-72">
+            <div className='w-full m-auto justify-center'>
+                
+                    <div className='flex flex-row justify-around mt-0 p-4 bg-sky-100'>  
+                        <div className='text-center font-bold'>
+                            <label className='mx-2'>Continent</label>
+                            <select onChange={selectCont} className='w-[110px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
+                                <option value="" hidden></option>
+                                <option value="All">All</option>
+                                <option value="Asia">Asia</option>
+                                <option value="Americas">America</option>
+                                <option value="Africa">Africa</option>
+                                <option value="Antarctic">Antartida</option>
+                                <option value="Europe">Europe</option>
+                                <option value="Oceania">Oceania</option>
+                            </select>     
+                        </div>
 
-                        <ul className="nav flex-column" data-bs-theme="dark">
-                            
-                            <li className="nav-item text-center">
-                                <form className="max-w-sm mx-auto">
-                                    <label className="block mb-2 text-xl font-medium text-black dark:text-white">Continent</label>
-                                    <select onChange={selectCont} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option value="" hidden></option>
-                                        <option value="All">All</option>
-                                        <option value="Asia">Asia</option>
-                                        <option value="Americas">America</option>
-                                        <option value="Africa">Africa</option>
-                                        <option value="Antarctic">Antartida</option>
-                                        <option value="Europe">Europe</option>
-                                        <option value="Oceania">Oceania</option>
-                                    </select>
-                                </form>
-                                
-                            </li>
-                            <li className="nav-item text-center pt-2">
-                                <form className="max-w-sm mx-auto">
-                                    <label className="block mb-2 text-xl font-medium text-black dark:text-white">Order Alphabetically</label>
-                                    <select onChange={selectOrd} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option value="" hidden></option>
-                                    <option value="As">Ascendente</option>
-                                    <option value="Ds">Descendente</option>
-                                    </select>
-                                </form>
+                        <div  className='text-center font-bold'>
+                            <label  className='mx-2'>Order Alph</label>
+                            <select onChange={selectOrd} className='w-[110px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
+                            <option value="" hidden></option>
+                            <option value="As">Ascendente</option>
+                            <option value="Ds">Descendente</option>
+                            </select>
+                        </div>
 
-                            </li>
-                            <li className="nav-item text-center pt-2">
-                                <form className="max-w-sm mx-auto">
-                                    <label className="block mb-2 text-xl font-medium text-black dark:text-white">Order by Population</label>
-                                    <select onChange={selectOrdPoblation} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option value="" hidden></option>
-                                    <option value="As">Ascendente</option>
-                                    <option value="Ds">Descendente</option>
-                                    </select>
-                                </form>
+                        <div className='text-center font-bold'>
+                            <label  className='mx-2'>Population</label>
+                            <select onChange={selectOrdPoblation} className='w-[110px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
+                            <option value="" hidden></option>
+                            <option value="As">Ascendente</option>
+                            <option value="Ds">Descendente</option>
+                            </select>
+                        </div>
 
-                            </li>
+                        <div className='text-center font-bold'>
+                            <label className='mx-2'>Activity</label>
+                            <select onChange={selectActivity} className='w-[110px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
+                                <option value=""hidden></option>
+                                {allActivities.map((actividad) => (
+                                    <option key={actividad.name} value={actividad.name}>
+                                        {actividad.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
 
-                            <li className='text-center pt-2'>
-                                <label className="block mb-2 text-xl font-medium text-black dark:text-white">Activity</label>
-                                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={selectActivity}>
-                                    <option value=""hidden></option>
-                                    {allActivities.map((actividad) => (
-                                        <option key={actividad.name} value={actividad.name}>
-                                            {actividad.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </li>
-                        </ul>
-                    
+                
+                <div className='mt-4 ml-[88px]'>
+                    <Cards data={data} />
                 </div>
 
+            </div>
+
+
+            <div className='my-4 font-bold text-xl'>
+                <Pagination setCurrentPage = {setCurrentPage} currentPage = {currentPage} page = {page} />
+            </div>
                     
-                    <div className='flex flex-col h-screen w-full pl-20'>
-                        <div><Cards data={data} /></div>
-                        <div className='p-4'><Pagination setCurrentPage = {setCurrentPage} currentPage = {currentPage} page = {page} /></div>
-                    </div>
         </div>
-
-
-            
-        
       
     );
 }
