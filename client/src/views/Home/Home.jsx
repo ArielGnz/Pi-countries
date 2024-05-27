@@ -60,10 +60,10 @@ function Home() {
             
             <div className='w-full m-auto justify-center'>
                 
-                    <div className='flex flex-row flex-wrap justify-normal lg:justify-around mt-0 p-4 bg-sky-100'>  
-                        <div className='text-center font-bold'>
-                            <label className='mx-2'>Continent</label>
-                            <select onChange={selectCont} className='w-[110px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
+                    <div className='flex flex-col lg:flex-row flex-wrap justify-normal lg:justify-around mt-0 p-4 bg-sky-100'>  
+                        <div className='flex justify-between font-bold mb-1'>
+                            <label className='mx-2 content-center'>Continent</label>
+                            <select onChange={selectCont} className='w-[180px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
                                 <option value="" hidden></option>
                                 <option value="All">All</option>
                                 <option value="Asia">Asia</option>
@@ -75,27 +75,27 @@ function Home() {
                             </select>     
                         </div>
 
-                        <div  className='text-center font-bold'>
-                            <label  className='mx-2'>Order Alph</label>
-                            <select onChange={selectOrd} className='w-[110px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
+                        <div className='flex justify-between font-bold mb-1'>
+                            <label  className='mx-2 content-center'>Order Alph</label>
+                            <select onChange={selectOrd} className='w-[180px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
                             <option value="" hidden></option>
                             <option value="As">Ascendente</option>
                             <option value="Ds">Descendente</option>
                             </select>
                         </div>
 
-                        <div className='text-center font-bold'>
-                            <label  className='mx-2'>Population</label>
-                            <select onChange={selectOrdPoblation} className='w-[110px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
+                        <div className='flex justify-between font-bold mb-1'>
+                            <label  className='mx-2 content-center'>Population</label>
+                            <select onChange={selectOrdPoblation} className='w-[180px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
                             <option value="" hidden></option>
                             <option value="As">Ascendente</option>
                             <option value="Ds">Descendente</option>
                             </select>
                         </div>
 
-                        <div className='text-center font-bold'>
-                            <label className='mx-2'>Activity</label>
-                            <select onChange={selectActivity} className='w-[110px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
+                        <div className='flex justify-between font-bold'>
+                            <label className='mx-2 content-center'>Activity</label>
+                            <select onChange={selectActivity} className='w-[180px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
                                 <option value=""hidden></option>
                                 {allActivities.map((actividad) => (
                                     <option key={actividad.name} value={actividad.name}>
