@@ -107,7 +107,7 @@ function Home() {
                     </div>
 
                 
-                <div className='mt-4 m-auto'>
+                <div className='mt-4 ml-4'>
                     <Cards data={data} />
                 </div>
 
