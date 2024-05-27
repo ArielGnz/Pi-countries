@@ -107,7 +107,7 @@ function Home() {
                     </div>
 
                 
-                <div className='mt-4 ml-[88px]'>
+                <div className='mt-4 m-auto'>
                     <Cards data={data} />
                 </div>
 
