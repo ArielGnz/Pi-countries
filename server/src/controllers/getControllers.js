@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const {Country, Activity, activity_country} = require("../db");
 
 const allCountriesDB = async () => {
@@ -6,7 +7,12 @@ const allCountriesDB = async () => {
 }
 
 const nameCountryDB = async(name) => {
-    const res = await Country.findAll({where: {name:name}});
+    const res = await Country.findAll({
+        where: {
+            name: { [Op.iLike]: `%${name}%` }
+        },
+        include:[{model : Activity, attributes: ["name"],through:{attributes: []} }]
+    });
     return res;    
 } 
 

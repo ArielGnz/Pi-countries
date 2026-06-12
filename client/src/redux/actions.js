@@ -1,6 +1,7 @@
 import { 
     GET_COUNTRIES,
     GET_NAME, 
+    SEARCH_COUNTRIES,
     GET_DETAIL, 
     FILTER_CONTINENTS, 
     GET_ORDER, 
@@ -26,13 +27,19 @@ export const getCountries = () => {
 
 export const getName = (name) => {
     return async function(dispatch){
-        const response = await axios(`/countries/?name=${name}`);
+        const response = await axios(`/countries/?name=${encodeURIComponent(name)}`);
+        const data = Array.isArray(response.data) ? response.data : [response.data];
         return dispatch({
             type: GET_NAME,
-            payload: response.data
+            payload: data.filter(Boolean)
         })
     }
 }
+
+export const searchCountries = (name) => ({
+    type: SEARCH_COUNTRIES,
+    payload: name.trim()
+});
 
 export const getDetail = (id) => {
     return async function(dispatch){

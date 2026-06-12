@@ -1,5 +1,6 @@
 export const GET_COUNTRIES = 'GET_COUNTRIES';
 export const GET_NAME = 'GET_NAME';
+export const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES';
 export const GET_DETAIL = 'GET_DETAIL';
 export const FILTER_CONTINENTS = 'FILTER_CONTINENTS';
 export const GET_ORDER = 'GET_ORDER';

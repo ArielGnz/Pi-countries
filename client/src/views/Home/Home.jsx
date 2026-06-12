@@ -15,6 +15,7 @@ function Home() {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.allCountries);
   const allActivities = useSelector((state) => state.allActivities);
+  const searchTerm = useSelector((state) => state.searchTerm);
 
   const dataQt = 8;
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,10 +53,21 @@ function Home() {
     dispatch(getCountries());
   }, [dispatch]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, allCountries.length]);
+
   return (
     <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
       <section className="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
-        <h1 className="mb-4 text-2xl font-bold text-foreground sm:text-3xl">Explore Countries</h1>
+        <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+          <h1 className="text-2xl font-bold text-foreground sm:text-3xl">Explore Countries</h1>
+          {searchTerm && (
+            <p className="text-sm text-muted-foreground">
+              Resultados para &quot;{searchTerm}&quot; ({allCountries.length})
+            </p>
+          )}
+        </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="flex flex-col gap-1.5">

@@ -1,5 +1,5 @@
 
-import { FILTER_CONTINENTS, GET_COUNTRIES, GET_DETAIL, GET_NAME, GET_ORDER, POBLATION_ORDER, GET_ACTIVITIES, FILTER_ACTIVITY } from "./action-types";
+import { FILTER_CONTINENTS, GET_COUNTRIES, GET_DETAIL, GET_NAME, GET_ORDER, POBLATION_ORDER, GET_ACTIVITIES, FILTER_ACTIVITY, SEARCH_COUNTRIES } from "./action-types";
 
 const initialState = {
     continents: [],
@@ -9,34 +9,49 @@ const initialState = {
     allActivities:[],
     CountriesAux: [],
     filterContinent: false,
-    filterAct: false 
+    filterAct: false,
+    searchTerm: ''
 }
+
+const applyFilters = (countries, { continent, activity, searchTerm }) => {
+    let result = [...countries];
+
+    if (searchTerm) {
+        const term = searchTerm.toLowerCase();
+        result = result.filter((country) =>
+            country.name.toLowerCase().includes(term)
+        );
+    }
+
+    if (continent && continent !== 'All') {
+        result = result.filter((country) => country.continent === continent);
+    }
+
+    if (activity && activity !== 'All') {
+        result = result.filter((country) =>
+            country.Activities?.some((act) => act.name === activity)
+        );
+    }
+
+    return result;
+};
 
 const rootReducer = (state = initialState, {type, payload}) => {
 
-    const filtros = (byFilterContinent, byFilterAct) => {
-        
-        let filterAllCopy = [...state.CountriesAux]
-
-        if(byFilterContinent && byFilterContinent !== 'All'){
-            filterAllCopy = filterAllCopy.filter((country) => country.continent === byFilterContinent)
-        }
-
-        if (byFilterAct && byFilterAct !== 'All'){
-            filterAllCopy = filterAllCopy.filter((c)=> c.Activities.find((ca)=>ca.name === payload))
-        }
-        return filterAllCopy;
-    }
+    const filterState = {
+        continent: state.filterContinent,
+        activity: state.filterAct,
+        searchTerm: state.searchTerm,
+    };
 
     switch(type){
 
         case GET_COUNTRIES:
-            
             return {
                 ...state,
-                allCountries: payload,
                 continents: payload,
-                CountriesAux: payload
+                CountriesAux: payload,
+                allCountries: applyFilters(payload, filterState),
             }
         case GET_ACTIVITIES:
             return{
@@ -46,11 +61,20 @@ const rootReducer = (state = initialState, {type, payload}) => {
         }
 
         case GET_NAME:
-
             return {
                 ...state,
                 allCountries: payload,
             }
+
+        case SEARCH_COUNTRIES:
+            return {
+                ...state,
+                searchTerm: payload,
+                allCountries: applyFilters(state.CountriesAux, {
+                    ...filterState,
+                    searchTerm: payload,
+                }),
+            };
 
         case GET_DETAIL:
             return {
@@ -60,23 +84,23 @@ const rootReducer = (state = initialState, {type, payload}) => {
 
         case FILTER_CONTINENTS:
             
-            const copyCont = [...state.continents];
-
             if (payload === 'All'){
                 return {
                     ...state,
-                    allCountries: copyCont,
+                    allCountries: applyFilters(state.CountriesAux, {
+                        ...filterState,
+                        continent: false,
+                    }),
                     filterContinent: false
                 }
             }
 
-            let filteredCont = filtros(payload, state.filterAct) 
-            // let filteredCont = copyCont.filter(function(filtroCont){
-            //     return filtroCont.continent === payload});
-             
             return {
                 ...state,
-                allCountries: filteredCont, 
+                allCountries: applyFilters(state.CountriesAux, {
+                    ...filterState,
+                    continent: payload,
+                }), 
                 filterContinent: payload
             }
 
@@ -86,19 +110,20 @@ const rootReducer = (state = initialState, {type, payload}) => {
         
                 return {
                     ...state,
-                    allCountries: state.continents, 
+                    allCountries: applyFilters(state.CountriesAux, {
+                        ...filterState,
+                        activity: false,
+                    }), 
                     filterAct: false
                 };
             }
-
-            let filtered2 = filtros(state.filterContinent, payload)
-            // let copy2 = [...state.allCountries]
-        
-            // let filtered2 = copy2.filter((c)=> c.Activities.find((ca)=>ca.name === payload))
         
             return{
                 ...state,
-                allCountries : filtered2,
+                allCountries : applyFilters(state.CountriesAux, {
+                    ...filterState,
+                    activity: payload,
+                }),
                 filterAct: payload
             }
         
@@ -109,7 +134,7 @@ const rootReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 allCountries: ordenAlf.sort((a, b) => {
-                    return payload === 'As' ? a.name.charCodeAt(0) - b.name.charCodeAt(0) : b.name.charCodeAt(0) - a.name.charCodeAt(0);
+                    return payload === 'As' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
                 })
             }
 

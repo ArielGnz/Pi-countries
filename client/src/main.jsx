@@ -6,6 +6,12 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import '../index.css';
 
+const storedTheme = localStorage.getItem('theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+  document.documentElement.classList.add('dark');
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
  
   
