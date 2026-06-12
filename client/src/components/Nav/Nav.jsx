@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { searchCountries } from '../../redux/actions';
+import { resetHome, searchCountries } from '../../redux/actions';
 import { useTheme } from '../../hooks/useTheme';
 
 function Nav() {
@@ -13,12 +13,24 @@ function Nav() {
   const [menuVisible, setMenuVisible] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
+  useEffect(() => {
+    setSearchString(searchTerm);
+  }, [searchTerm]);
+
   const toggleMenu = () => {
     setMenuVisible((prev) => !prev);
   };
 
   function handleChange(e) {
     setSearchString(e.target.value);
+  }
+
+  function goHomeReset(e) {
+    e?.preventDefault?.();
+    setSearchString('');
+    dispatch(resetHome());
+    setMenuVisible(false);
+    navigate('/home');
   }
 
   function runSearch(term) {
@@ -56,10 +68,7 @@ function Nav() {
           </svg>
           <Link
             to="/home"
-            onClick={() => {
-              setSearchString('');
-              dispatch(searchCountries(''));
-            }}
+            onClick={goHomeReset}
             className="text-xl font-bold tracking-tight text-primary-foreground transition-opacity hover:opacity-80"
           >
             Countries
@@ -105,7 +114,7 @@ function Nav() {
           <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
             <Link
               to="/home"
-              onClick={() => setMenuVisible(false)}
+              onClick={goHomeReset}
               className="rounded-md px-3 py-2 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10 sm:text-base"
             >
               Home

@@ -7,4 +7,5 @@ export const GET_ORDER = 'GET_ORDER';
 export const POBLATION_ORDER = 'POBLATION_ORDER';
 export const GET_ACTIVITIES = 'GET_ACTIVITIES';
 export const FILTER_ACTIVITY = 'FILTER_ACTIVITY';
+export const RESET_HOME = 'RESET_HOME';
 

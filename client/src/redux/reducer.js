@@ -1,5 +1,5 @@
 
-import { FILTER_CONTINENTS, GET_COUNTRIES, GET_DETAIL, GET_NAME, GET_ORDER, POBLATION_ORDER, GET_ACTIVITIES, FILTER_ACTIVITY, SEARCH_COUNTRIES } from "./action-types";
+import { FILTER_CONTINENTS, GET_COUNTRIES, GET_DETAIL, GET_NAME, GET_ORDER, POBLATION_ORDER, GET_ACTIVITIES, FILTER_ACTIVITY, SEARCH_COUNTRIES, RESET_HOME } from "./action-types";
 
 const initialState = {
     continents: [],
@@ -10,6 +10,8 @@ const initialState = {
     CountriesAux: [],
     filterContinent: false,
     filterAct: false,
+    alphaOrder: false,
+    populationOrder: false,
     searchTerm: ''
 }
 
@@ -76,6 +78,17 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 }),
             };
 
+        case RESET_HOME:
+            return {
+                ...state,
+                allCountries: [...state.continents],
+                filterContinent: false,
+                filterAct: false,
+                alphaOrder: false,
+                populationOrder: false,
+                searchTerm: '',
+            };
+
         case GET_DETAIL:
             return {
                 ...state,
@@ -133,6 +146,7 @@ const rootReducer = (state = initialState, {type, payload}) => {
 
             return {
                 ...state,
+                alphaOrder: payload,
                 allCountries: ordenAlf.sort((a, b) => {
                     return payload === 'As' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
                 })
@@ -142,6 +156,7 @@ const rootReducer = (state = initialState, {type, payload}) => {
             let ordenPoblation = [...state.allCountries]
             return {
                 ...state,
+                populationOrder: payload,
                 allCountries: ordenPoblation.sort((a,b) => {
                     return payload === 'As' ? a.poblation - b.poblation : b.poblation - a.poblation;
                 })

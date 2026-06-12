@@ -7,7 +7,8 @@ import {
     GET_ORDER, 
     POBLATION_ORDER,
     GET_ACTIVITIES,
-    FILTER_ACTIVITY
+    FILTER_ACTIVITY,
+    RESET_HOME
 } from './action-types';
 
 import axios from 'axios';
@@ -39,6 +40,10 @@ export const getName = (name) => {
 export const searchCountries = (name) => ({
     type: SEARCH_COUNTRIES,
     payload: name.trim()
+});
+
+export const resetHome = () => ({
+    type: RESET_HOME,
 });
 
 export const getDetail = (id) => {

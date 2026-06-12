@@ -16,6 +16,10 @@ function Home() {
   const allCountries = useSelector((state) => state.allCountries);
   const allActivities = useSelector((state) => state.allActivities);
   const searchTerm = useSelector((state) => state.searchTerm);
+  const filterContinent = useSelector((state) => state.filterContinent);
+  const filterAct = useSelector((state) => state.filterAct);
+  const alphaOrder = useSelector((state) => state.alphaOrder);
+  const populationOrder = useSelector((state) => state.populationOrder);
 
   const dataQt = 8;
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,7 +59,7 @@ function Home() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm, allCountries.length]);
+  }, [searchTerm, filterContinent, filterAct, alphaOrder, populationOrder]);
 
   return (
     <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
@@ -74,7 +78,12 @@ function Home() {
             <label htmlFor="continent-filter" className="filter-label">
               Continent
             </label>
-            <select id="continent-filter" onChange={selectCont} className="select-field">
+            <select
+              id="continent-filter"
+              value={filterContinent || ''}
+              onChange={selectCont}
+              className="select-field"
+            >
               <option value="" hidden>
                 Select...
               </option>
@@ -92,7 +101,12 @@ function Home() {
             <label htmlFor="alpha-order" className="filter-label">
               Order Alph
             </label>
-            <select id="alpha-order" onChange={selectOrd} className="select-field">
+            <select
+              id="alpha-order"
+              value={alphaOrder || ''}
+              onChange={selectOrd}
+              className="select-field"
+            >
               <option value="" hidden>
                 Select...
               </option>
@@ -105,7 +119,12 @@ function Home() {
             <label htmlFor="population-order" className="filter-label">
               Population
             </label>
-            <select id="population-order" onChange={selectOrdPoblation} className="select-field">
+            <select
+              id="population-order"
+              value={populationOrder || ''}
+              onChange={selectOrdPoblation}
+              className="select-field"
+            >
               <option value="" hidden>
                 Select...
               </option>
@@ -118,7 +137,12 @@ function Home() {
             <label htmlFor="activity-filter" className="filter-label">
               Activity
             </label>
-            <select id="activity-filter" onChange={selectActivity} className="select-field">
+            <select
+              id="activity-filter"
+              value={filterAct || ''}
+              onChange={selectActivity}
+              className="select-field"
+            >
               <option value="" hidden>
                 Select...
               </option>
