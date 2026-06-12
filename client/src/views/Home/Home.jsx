@@ -1,126 +1,134 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-//import { getCountries } from '../../redux/actions';
-import { filterContinents, getOrder, poblationOrder, getActivities, filterActivity,  getCountries } from "../../redux/actions";
-
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  filterContinents,
+  getOrder,
+  poblationOrder,
+  getActivities,
+  filterActivity,
+  getCountries,
+} from '../../redux/actions';
 import Cards from '../../components/Cards/Cards';
 import Pagination from '../../components/Pagination/Pagination';
 
-//import './Home1.css';
-
 function Home() {
+  const dispatch = useDispatch();
+  const allCountries = useSelector((state) => state.allCountries);
+  const allActivities = useSelector((state) => state.allActivities);
 
-    const dispatch = useDispatch();
-    const allCountries = useSelector((state) => state.allCountries);
-    const allActivities = useSelector((state)=>state.allActivities);
+  const dataQt = 8;
+  const [currentPage, setCurrentPage] = useState(1);
 
-    //Pagination
+  const indexFin = currentPage * dataQt;
+  const indexIni = indexFin - dataQt;
+  const data = allCountries.slice(indexIni, indexFin);
+  const page = Math.ceil(allCountries.length / dataQt);
 
-    const dataQt = 8;
-    const [currentPage, setCurrentPage] = useState(1);
-    
-    const indexFin = currentPage * dataQt;
-    const indexIni = indexFin - dataQt;
-    const data = allCountries.slice(indexIni, indexFin);
-    const page = Math.ceil(allCountries.length / dataQt)
-        
-    
-    function selectCont(e){
-        dispatch(filterContinents(e.target.value));
-        setCurrentPage(1);
-    }
+  function selectCont(e) {
+    dispatch(filterContinents(e.target.value));
+    setCurrentPage(1);
+  }
 
-    function selectOrd(e){
-        dispatch(getOrder(e.target.value));
-        setCurrentPage(1);
-    }
+  function selectOrd(e) {
+    dispatch(getOrder(e.target.value));
+    setCurrentPage(1);
+  }
 
-    function selectOrdPoblation(e){
-        dispatch(poblationOrder(e.target.value));
-        setCurrentPage(1);
-    }
+  function selectOrdPoblation(e) {
+    dispatch(poblationOrder(e.target.value));
+    setCurrentPage(1);
+  }
 
-    function selectActivity(e){
-        dispatch(filterActivity(e.target.value , e.target.name));
-        setCurrentPage(1);
-    }
+  function selectActivity(e) {
+    dispatch(filterActivity(e.target.value, e.target.name));
+    setCurrentPage(1);
+  }
 
-    useEffect(() =>{
-        dispatch(getActivities())
-    },[]);
+  useEffect(() => {
+    dispatch(getActivities());
+  }, [dispatch]);
 
-    useEffect(() =>{
-        dispatch(getCountries())
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getCountries());
+  }, [dispatch]);
 
+  return (
+    <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
+      <section className="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
+        <h1 className="mb-4 text-2xl font-bold text-foreground sm:text-3xl">Explore Countries</h1>
 
-    return (  
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="continent-filter" className="filter-label">
+              Continent
+            </label>
+            <select id="continent-filter" onChange={selectCont} className="select-field">
+              <option value="" hidden>
+                Select...
+              </option>
+              <option value="All">All</option>
+              <option value="Asia">Asia</option>
+              <option value="Americas">America</option>
+              <option value="Africa">Africa</option>
+              <option value="Antarctic">Antartida</option>
+              <option value="Europe">Europe</option>
+              <option value="Oceania">Oceania</option>
+            </select>
+          </div>
 
-        <div className='flex flex-col w-full m-auto '>
-            
-            <div className='w-full m-auto justify-center'>
-                
-                    <div className='flex flex-col lg:flex-row flex-wrap justify-normal lg:justify-around mt-0 p-4 bg-sky-100'>  
-                        <div className='flex justify-between font-bold mb-1'>
-                            <label className='mx-2 content-center'>Continent</label>
-                            <select onChange={selectCont} className='w-[180px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
-                                <option value="" hidden></option>
-                                <option value="All">All</option>
-                                <option value="Asia">Asia</option>
-                                <option value="Americas">America</option>
-                                <option value="Africa">Africa</option>
-                                <option value="Antarctic">Antartida</option>
-                                <option value="Europe">Europe</option>
-                                <option value="Oceania">Oceania</option>
-                            </select>     
-                        </div>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="alpha-order" className="filter-label">
+              Order Alph
+            </label>
+            <select id="alpha-order" onChange={selectOrd} className="select-field">
+              <option value="" hidden>
+                Select...
+              </option>
+              <option value="As">Ascendente</option>
+              <option value="Ds">Descendente</option>
+            </select>
+          </div>
 
-                        <div className='flex justify-between font-bold mb-1'>
-                            <label  className='mx-2 content-center'>Order Alph</label>
-                            <select onChange={selectOrd} className='w-[180px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
-                            <option value="" hidden></option>
-                            <option value="As">Ascendente</option>
-                            <option value="Ds">Descendente</option>
-                            </select>
-                        </div>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="population-order" className="filter-label">
+              Population
+            </label>
+            <select id="population-order" onChange={selectOrdPoblation} className="select-field">
+              <option value="" hidden>
+                Select...
+              </option>
+              <option value="As">Ascendente</option>
+              <option value="Ds">Descendente</option>
+            </select>
+          </div>
 
-                        <div className='flex justify-between font-bold mb-1'>
-                            <label  className='mx-2 content-center'>Population</label>
-                            <select onChange={selectOrdPoblation} className='w-[180px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
-                            <option value="" hidden></option>
-                            <option value="As">Ascendente</option>
-                            <option value="Ds">Descendente</option>
-                            </select>
-                        </div>
-
-                        <div className='flex justify-between font-bold'>
-                            <label className='mx-2 content-center'>Activity</label>
-                            <select onChange={selectActivity} className='w-[180px] border-2 border-slate-500 rounded-md lg:w-[180px]'>
-                                <option value=""hidden></option>
-                                {allActivities.map((actividad) => (
-                                    <option key={actividad.name} value={actividad.name}>
-                                        {actividad.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-
-                
-                <div className='mt-4 ml-4 lg:ml-[85px]'>
-                    <Cards data={data} />
-                </div>
-
-            </div>
-
-
-            <div className='my-4 font-bold text-xl'>
-                <Pagination setCurrentPage = {setCurrentPage} currentPage = {currentPage} page = {page} />
-            </div>
-                    
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="activity-filter" className="filter-label">
+              Activity
+            </label>
+            <select id="activity-filter" onChange={selectActivity} className="select-field">
+              <option value="" hidden>
+                Select...
+              </option>
+              {allActivities.map((actividad) => (
+                <option key={actividad.name} value={actividad.name}>
+                  {actividad.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      
-    );
+      </section>
+
+      <section className="mt-6 sm:mt-8">
+        <Cards data={data} />
+      </section>
+
+      <section className="my-8">
+        <Pagination setCurrentPage={setCurrentPage} currentPage={currentPage} page={page} />
+      </section>
+    </div>
+  );
 }
 
 export default Home;
