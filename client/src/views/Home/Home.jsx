@@ -101,7 +101,7 @@ function Home() {
         </div>
         <div className="relative flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
           <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-            Discover the World
+            Descubre el Mundo
           </h1>
           {searchTerm ? (
             <p className="text-sm font-medium text-muted-foreground bg-muted/65 px-3 py-1.5 rounded-full">
