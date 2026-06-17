@@ -38,7 +38,7 @@ function Landing() {
         </h1>
         
         <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-          Discover countries, explore details, and create custom activities around the globe.
+          Descubre países, explora detalles y crea actividades personalizadas en todo el mundo.
         </p>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-4">

@@ -94,19 +94,28 @@ function Home() {
   return (
     <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8 animate-fade-in">
       {/* Title & Search Results Info */}
-      <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
-        <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-          Discover the World
-        </h1>
-        {searchTerm ? (
-          <p className="text-sm font-medium text-muted-foreground bg-muted/65 px-3 py-1.5 rounded-full">
-            Results for &quot;<span className="text-primary font-bold">{searchTerm}</span>&quot; ({allCountries.length})
-          </p>
-        ) : (
-          <p className="text-sm font-medium text-muted-foreground bg-muted/40 px-3 py-1.5 rounded-full">
-            Total countries: <span className="text-foreground font-semibold">{allCountries.length}</span>
-          </p>
-        )}
+      <div className="relative mb-6 overflow-hidden rounded-3xl bg-card/50 p-4 shadow-sm sm:p-6">
+        <div className="pointer-events-none absolute -top-6 right-6 hidden h-24 w-24 rounded-full bg-primary/20 blur-2xl lg:block" />
+        <div className="pointer-events-none absolute top-6 right-10 hidden animate-pulse text-3xl text-primary/70 lg:block">
+          ✨
+        </div>
+        <div className="relative flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+          <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+            Discover the World
+          </h1>
+          {searchTerm ? (
+            <p className="text-sm font-medium text-muted-foreground bg-muted/65 px-3 py-1.5 rounded-full">
+              Results for &quot;<span className="text-primary font-bold">{searchTerm}</span>&quot; ({allCountries.length})
+            </p>
+          ) : (
+            <p className="text-sm font-medium text-muted-foreground bg-muted/40 px-3 py-1.5 rounded-full">
+              Total countries: <span className="text-foreground font-semibold">{allCountries.length}</span>
+            </p>
+          )}
+        </div>
+        <p className="mt-4 text-sm text-muted-foreground sm:mt-0">
+          Un pequeño toque visual para que la página se sienta más viva mientras exploras países y actividades.
+        </p>
       </div>
 
       {/* Filter / Sort Control Dashboard */}
