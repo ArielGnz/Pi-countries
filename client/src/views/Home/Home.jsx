@@ -61,21 +61,64 @@ function Home() {
     setCurrentPage(1);
   }, [searchTerm, filterContinent, filterAct, alphaOrder, populationOrder]);
 
-  return (
-    <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
-      <section className="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
-        <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="text-2xl font-bold text-foreground sm:text-3xl">Explore Countries</h1>
-          {searchTerm && (
-            <p className="text-sm text-muted-foreground">
-              Resultados para &quot;{searchTerm}&quot; ({allCountries.length})
-            </p>
-          )}
-        </div>
+  const activeFilters = [];
+  if (filterContinent && filterContinent !== 'All') {
+    activeFilters.push({
+      id: 'continent',
+      label: `Continent: ${filterContinent}`,
+      clear: () => dispatch(filterContinents('All')),
+    });
+  }
+  if (filterAct && filterAct !== 'All') {
+    activeFilters.push({
+      id: 'activity',
+      label: `Activity: ${filterAct}`,
+      clear: () => dispatch(filterActivity('All')),
+    });
+  }
+  if (alphaOrder) {
+    activeFilters.push({
+      id: 'alpha',
+      label: `Alphabetical: ${alphaOrder === 'As' ? 'A-Z' : 'Z-A'}`,
+      clear: () => dispatch(getOrder('')),
+    });
+  }
+  if (populationOrder) {
+    activeFilters.push({
+      id: 'population',
+      label: `Population: ${populationOrder === 'As' ? 'Low-High' : 'High-Low'}`,
+      clear: () => dispatch(poblationOrder('')),
+    });
+  }
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="continent-filter" className="filter-label">
+  return (
+    <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8 animate-fade-in">
+      {/* Title & Search Results Info */}
+      <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+        <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+          Discover the World
+        </h1>
+        {searchTerm ? (
+          <p className="text-sm font-medium text-muted-foreground bg-muted/65 px-3 py-1.5 rounded-full">
+            Results for &quot;<span className="text-primary font-bold">{searchTerm}</span>&quot; ({allCountries.length})
+          </p>
+        ) : (
+          <p className="text-sm font-medium text-muted-foreground bg-muted/40 px-3 py-1.5 rounded-full">
+            Total countries: <span className="text-foreground font-semibold">{allCountries.length}</span>
+          </p>
+        )}
+      </div>
+
+      {/* Filter / Sort Control Dashboard */}
+      <section className="rounded-2xl border border-border bg-card/60 backdrop-blur-sm p-5 shadow-sm sm:p-6 transition-all hover:shadow-md">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          
+          {/* Continent Filter */}
+          <div className="flex flex-col gap-2">
+            <label htmlFor="continent-filter" className="filter-label flex items-center gap-1.5">
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2a2 2 0 002-2V7.5C19 6.12 17.88 5 16.5 5c-1.38 0-2.5-1.12-2.5-2.5V3m-3.95 19.95A9 9 0 1122 12c0 2.485-.9 4.761-2.386 6.51" />
+              </svg>
               Continent
             </label>
             <select
@@ -85,21 +128,25 @@ function Home() {
               className="select-field"
             >
               <option value="" hidden>
-                Select...
+                Select continent
               </option>
-              <option value="All">All</option>
+              <option value="All">All continents</option>
               <option value="Asia">Asia</option>
-              <option value="Americas">America</option>
+              <option value="Americas">Americas</option>
               <option value="Africa">Africa</option>
-              <option value="Antarctic">Antartida</option>
+              <option value="Antarctic">Antarctica</option>
               <option value="Europe">Europe</option>
               <option value="Oceania">Oceania</option>
             </select>
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="alpha-order" className="filter-label">
-              Order Alph
+          {/* Alphabetical Order */}
+          <div className="flex flex-col gap-2">
+            <label htmlFor="alpha-order" className="filter-label flex items-center gap-1.5">
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+              </svg>
+              Order Alphabetical
             </label>
             <select
               id="alpha-order"
@@ -108,16 +155,20 @@ function Home() {
               className="select-field"
             >
               <option value="" hidden>
-                Select...
+                Select order
               </option>
-              <option value="As">Ascendente</option>
-              <option value="Ds">Descendente</option>
+              <option value="As">A - Z (Ascending)</option>
+              <option value="Ds">Z - A (Descending)</option>
             </select>
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="population-order" className="filter-label">
-              Population
+          {/* Population Order */}
+          <div className="flex flex-col gap-2">
+            <label htmlFor="population-order" className="filter-label flex items-center gap-1.5">
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              Population Size
             </label>
             <select
               id="population-order"
@@ -126,16 +177,20 @@ function Home() {
               className="select-field"
             >
               <option value="" hidden>
-                Select...
+                Select size
               </option>
-              <option value="As">Ascendente</option>
-              <option value="Ds">Descendente</option>
+              <option value="As">Ascending (Low-High)</option>
+              <option value="Ds">Descending (High-Low)</option>
             </select>
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="activity-filter" className="filter-label">
-              Activity
+          {/* Activity Filter */}
+          <div className="flex flex-col gap-2">
+            <label htmlFor="activity-filter" className="filter-label flex items-center gap-1.5">
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Tourist Activity
             </label>
             <select
               id="activity-filter"
@@ -144,8 +199,9 @@ function Home() {
               className="select-field"
             >
               <option value="" hidden>
-                Select...
+                Select activity
               </option>
+              <option value="All">All activities</option>
               {allActivities.map((actividad) => (
                 <option key={actividad.name} value={actividad.name}>
                   {actividad.name}
@@ -154,13 +210,42 @@ function Home() {
             </select>
           </div>
         </div>
+
+        {/* Active Filter Chips */}
+        {activeFilters.length > 0 && (
+          <div className="mt-5 flex flex-wrap gap-2 pt-4 border-t border-border/60">
+            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide self-center mr-1">
+              Active filters:
+            </span>
+            {activeFilters.map((filter) => (
+              <button
+                key={filter.id}
+                onClick={filter.clear}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary hover:bg-primary/20 transition-all focus:outline-none focus:ring-2 focus:ring-primary/20"
+              >
+                {filter.label}
+                <svg className="h-3.5 w-3.5 text-primary/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            ))}
+            <button
+              onClick={() => dispatch(resetHome())}
+              className="text-xs font-bold text-muted-foreground hover:text-primary transition-colors duration-200 self-center ml-auto px-2 py-1"
+            >
+              Reset All
+            </button>
+          </div>
+        )}
       </section>
 
-      <section className="mt-6 sm:mt-8">
+      {/* Grid of Countries */}
+      <section className="mt-8">
         <Cards data={data} />
       </section>
 
-      <section className="my-8">
+      {/* Pagination component */}
+      <section className="my-10">
         <Pagination setCurrentPage={setCurrentPage} currentPage={currentPage} page={page} />
       </section>
     </div>
